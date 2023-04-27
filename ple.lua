@@ -52,7 +52,7 @@ local function readfile(fn)
 	local fh, errm = io.open(fn)
 	if not fh then return nil, errm end
 	local ll = {}
-	for l in fh:lines() do 
+	for l in fh:lines() do
 		if not ulen(l) then
 			return nil, "File error: invalid UTF8 sequence"
 		end
@@ -176,7 +176,7 @@ function editor.readchar(prompt, charpat)
 --~ 			local ch = char(k)
 --~ 			if ch:match(charpat) then return ch end
 --~ 		end
-		
+
 		local ch = uchar(k)
 		if ch:match(charpat) then return ch end
 		-- ignore all other keys
@@ -268,12 +268,12 @@ local function boxline(b, hs, bl, l, insel, jon, joff)
 	local j = 0
 	for p, uc in utf8.codes(l) do
 		-- j = char position in line, p = byte position in string
-		j = j + 1  
-		if (not insel) and j == jon then 
-			style.sel(); insel=true 
+		j = j + 1
+		if (not insel) and j == jon then
+			style.sel(); insel=true
 		end
-		if insel and j == joff then 
-			style.normal() 
+		if insel and j == joff then
+			style.normal()
 		end
 		local chs = ccrepr(uc, cc)
 		cc = cc + ulen(chs)
@@ -314,7 +314,7 @@ local function adjcursor(buf)
 	for p,c in utf8.codes(l) do
 		if cj == buf.cj then break end
 		cj = cj + 1
-		if c == 9 then 
+		if c == 9 then
 			cy = cy + (tabln - (cy-1) % tabln)
 		else
 			cy = cy + 1
@@ -440,13 +440,13 @@ function e.goup(b) b:movecur(-1, 0) end
 function e.godown(b) b:movecur(1, 0) end
 
 function e.goright(b)
-	return 	b:ateot() 
+	return 	b:ateot()
 		or b:ateol() and b:movecur(1, -MAX)
 		or b:movecur(0, 1)
 end
 
 function e.goleft(b)
-	return 	b:atbot() 
+	return 	b:atbot()
 		or b:atbol() and b:movecur(-1, MAX)
 		or b:movecur(0, -1)
 end
@@ -484,7 +484,7 @@ function e.prevword(b)
 		inw2 = wordchar(u)
 		if inw1 and not inw2 then e.goright(b); break end
 		inw1 = inw2
-	end	
+	end
 end--prevword
 
 function e.pgdn(b)
