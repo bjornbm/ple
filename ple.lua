@@ -1100,19 +1100,19 @@ local function editor_loadinitfile()
 end--editor_loadinitfile
 
 function editor.error_handler(r)
-	local mode = term.savemode()
-	term.setsanemode()
+	term.hide()
 	color(col.red)
-	print(
+	print(string.gsub(
 		"\nAN ERROR HAS OCCURRED! \n\n" 
 		.. "It is recommended to exit the editor\n"
 		.. "(you may try to save your buffers first)\n"
 		.. string.rep("_", 72) .. "\n"
-		..  r
-	)
-	term.restoremode(mode)
+		.. r,
+		"\n", "\r\n"
+	))
 	readchar("Press SPACE to continue", " ")
 	e.redisplay()
+	term.show()
 end
 
 local function editor_loop(ll, fname)
